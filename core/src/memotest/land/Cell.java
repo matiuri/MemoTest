@@ -9,6 +9,7 @@ import memotest.utils.assets.AssetLoader;
 
 public class Cell extends Actor {
 	private Texture tex;
+	private boolean selected;
 	
 	public Cell(int x, int y, AssetLoader loader) {
 		tex = loader.get("Cell", Texture.class);
@@ -18,7 +19,14 @@ public class Cell extends Actor {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		batch.setColor(getColor());
-		batch.draw(tex, getX(), getY(), getWidth(), getHeight());
+		if (selected)
+			batch.draw(tex, getX() + 5, getY() + 5, getWidth() - 10, getHeight() - 10);
+		else
+			batch.draw(tex, getX(), getY(), getWidth(), getHeight());
 		batch.setColor(Color.WHITE);
+	}
+	
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 }
