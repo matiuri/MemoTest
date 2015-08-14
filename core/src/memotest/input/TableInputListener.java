@@ -14,9 +14,8 @@ public class TableInputListener extends InputListener {
 	
 	@Override
 	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-		if (x < 0 || y < 0 || x > table.width * 64 || y > table.height * 64)
+		if (x < 0 || y < 0 || x > table.getBoardWidth() * 64 || y > table.getBoardHeight() * 64)
 			return false;
-		// TODO: check if cell was already removed
 		table.select(x, y);
 		return true;
 	}

@@ -17,7 +17,9 @@ public class MemoTest extends Game {
 	@Override
 	public void create() {
 		loader = new AssetLoader();
-		loader.queue("Cell", "TempCell.png", Texture.class).load();
+		loader.queue("Cell", "TempCell.png", Texture.class)
+				.queue("BackCell", "BackCell.png", Texture.class)
+				.queue("Filter", "CellFilter.png", Texture.class).load();
 		gameScreen = new GameScreen(this);
 		setScreen(gameScreen);
 	}

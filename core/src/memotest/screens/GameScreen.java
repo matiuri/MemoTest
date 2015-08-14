@@ -46,6 +46,5 @@ public class GameScreen extends AbstractScreen {
 	
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 	}
 }
