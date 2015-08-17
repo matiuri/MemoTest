@@ -16,12 +16,11 @@ public class MemoTest extends Game {
 	
 	@Override
 	public void create() {
-		loader = new AssetLoader();
+		loader = new AssetLoader(this);
+		gameScreen = new GameScreen(this);
 		loader.queue("Cell", "TempCell.png", Texture.class)
 				.queue("BackCell", "BackCell.png", Texture.class)
 				.queue("Filter", "CellFilter.png", Texture.class).load();
-		gameScreen = new GameScreen(this);
-		setScreen(gameScreen);
 	}
 	
 	@Override
@@ -29,6 +28,7 @@ public class MemoTest extends Game {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		super.render();
+		// TODO: change this
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE))
 			Gdx.app.exit();
 	}
@@ -40,5 +40,9 @@ public class MemoTest extends Game {
 	
 	public AssetLoader getLoader() {
 		return loader;
+	}
+	
+	public AbstractScreen getGameScreen() {
+		return gameScreen;
 	}
 }

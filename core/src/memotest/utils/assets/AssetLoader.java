@@ -6,13 +6,18 @@ import java.util.Map;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.utils.Disposable;
 
+import memotest.MemoTest;
+import memotest.screens.LoadingScreen;
+
 public class AssetLoader implements Disposable {
 	private AssetManager manager;
 	private Map<String, String> map;
+	private MemoTest game;
 	
-	public AssetLoader() {
+	public AssetLoader(MemoTest game) {
 		manager = new AssetManager();
 		map = new HashMap<>();
+		this.game = game;
 	}
 	
 	public <T> AssetLoader queue(String key, String path, Class<T> CLASS) {
@@ -26,8 +31,7 @@ public class AssetLoader implements Disposable {
 	}
 	
 	public void load() {
-		// TODO: improve this
-		manager.finishLoading();
+		game.setScreen(new LoadingScreen(game, manager, game.getGameScreen()));
 	}
 	
 	public <T> T get(String key, Class<T> CLASS) {

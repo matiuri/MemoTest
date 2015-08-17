@@ -30,7 +30,6 @@ public class Cell extends Actor {
 			batch.setColor(Color.WHITE);
 		} else
 			batch.draw(back, getX(), getY(), getWidth(), getHeight());
-		// TODO: apply filter if removed
 	}
 	
 	public void setSelected(boolean selected) {
