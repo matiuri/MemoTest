@@ -9,7 +9,7 @@ import memotest.utils.assets.AssetLoader;
 
 public class Cell extends Actor {
 	private Texture cell, back, filter;
-	private boolean selected;
+	private boolean selected, removed;
 	
 	public Cell(int x, int y, AssetLoader loader) {
 		cell = loader.get("Cell", Texture.class);
@@ -23,6 +23,10 @@ public class Cell extends Actor {
 		if (selected) {
 			batch.setColor(getColor());
 			batch.draw(cell, getX(), getY(), getWidth(), getHeight());
+			if (removed) {
+				batch.setColor(Color.BLACK);
+				batch.draw(filter, getX(), getY(), getWidth(), getHeight());
+			}
 			batch.setColor(Color.WHITE);
 		} else
 			batch.draw(back, getX(), getY(), getWidth(), getHeight());
@@ -31,5 +35,13 @@ public class Cell extends Actor {
 	
 	public void setSelected(boolean selected) {
 		this.selected = selected;
+	}
+	
+	public void setRemoved(boolean removed) {
+		this.removed = removed;
+	}
+	
+	public boolean isRemoved() {
+		return removed;
 	}
 }

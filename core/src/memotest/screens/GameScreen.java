@@ -7,7 +7,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import memotest.MemoTest;
 import memotest.input.TableInputListener;
-import memotest.land.Cell;
 import memotest.land.Table;
 
 public class GameScreen extends AbstractScreen {
@@ -23,10 +22,6 @@ public class GameScreen extends AbstractScreen {
 		stage = new Stage(new FitViewport(800, 480));
 		t = new Table(6, 6, game.getLoader());
 		t.addListener(new TableInputListener(t));
-		Cell[][] cells = t.getCells();
-		for (int i = 0; i < cells.length; i++)
-			for (int j = 0; j < cells[i].length; j++)
-				stage.addActor(cells[i][j]);
 		stage.addActor(t);
 		Gdx.input.setInputProcessor(stage);
 	}

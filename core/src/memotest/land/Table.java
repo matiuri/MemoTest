@@ -2,11 +2,11 @@ package memotest.land;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 
 import memotest.utils.assets.AssetLoader;
 
-public class Table extends Actor {
+public class Table extends Group {
 	private final int width, height, pairs;
 	private Cell[][] cells;
 	private Cell[] selected;
@@ -27,6 +27,7 @@ public class Table extends Actor {
 			for (int y = 0; y < height; y++) {
 				cells[x][y] = new Cell(x, y, loader);
 				cells[x][y].setColor(pairs[i++]);
+				addActor(cells[x][y]);
 			}
 		}
 	}
@@ -39,12 +40,12 @@ public class Table extends Actor {
 			timer -= delta;
 		else if (timer <= 0) {
 			if (selected[0].getColor().equals(selected[1].getColor())) {
-				// TODO: change this; not remove
-				selected[0].remove();
-				selected[1].remove();
+				selected[0].setRemoved(true);
+				selected[1].setRemoved(true);
+			} else {
+				selected[0].setSelected(false);
+				selected[1].setSelected(false);
 			}
-			selected[0].setSelected(false);
-			selected[1].setSelected(false);
 			selected[0] = null;
 			selected[1] = null;
 		}
@@ -79,17 +80,21 @@ public class Table extends Actor {
 		}
 	}
 	
-	public Cell[][] getCells() {
-		return cells;
+	public int getBoardWidth() {
+		return width;
+	}
+	
+	public int getBoardHeight() {
+		return height;
 	}
 	
 	public void select(float xPos, float yPos) {
 		int x = (int) (xPos / 64), y = (int) (yPos / 64);
-		if (selected[0] == null && cells[x][y].getParent() != null) {
+		if (selected[0] == null && !cells[x][y].isRemoved()) {
 			selected[0] = cells[x][y];
 			selected[0].setSelected(true);
 		} else if (selected[1] == null) {
-			if (!cells[x][y].equals(selected[0]) && cells[x][y].getParent() != null) {
+			if (!cells[x][y].equals(selected[0]) && !cells[x][y].isRemoved()) {
 				selected[1] = cells[x][y];
 				selected[1].setSelected(true);
 			}
@@ -104,13 +109,5 @@ public class Table extends Actor {
 			this.color = color;
 			num = 2;
 		}
-	}
-	
-	public int getBoardWidth() {
-		return width;
-	}
-	
-	public int getBoardHeight() {
-		return height;
 	}
 }
