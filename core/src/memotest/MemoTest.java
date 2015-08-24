@@ -20,7 +20,7 @@ public class MemoTest extends Game {
 		gameScreen = new GameScreen(this);
 		loader.queue("Cell", "TempCell.png", Texture.class)
 				.queue("BackCell", "BackCell.png", Texture.class)
-				.queue("Filter", "CellFilter.png", Texture.class).load();
+				.queue("Filter", "CellFilter.png", Texture.class).load(gameScreen);
 	}
 	
 	@Override
@@ -40,9 +40,5 @@ public class MemoTest extends Game {
 	
 	public AssetLoader getLoader() {
 		return loader;
-	}
-	
-	public AbstractScreen getGameScreen() {
-		return gameScreen;
 	}
 }

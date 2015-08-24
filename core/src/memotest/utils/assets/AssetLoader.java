@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.utils.Disposable;
 
 import memotest.MemoTest;
+import memotest.screens.AbstractScreen;
 import memotest.screens.LoadingScreen;
 
 public class AssetLoader implements Disposable {
@@ -30,8 +31,8 @@ public class AssetLoader implements Disposable {
 		return this;
 	}
 	
-	public void load() {
-		game.setScreen(new LoadingScreen(game, manager, game.getGameScreen()));
+	public void load(final AbstractScreen nextScreen) {
+		game.setScreen(new LoadingScreen(game, manager, nextScreen));
 	}
 	
 	public <T> T get(String key, Class<T> CLASS) {
