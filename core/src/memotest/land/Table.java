@@ -1,6 +1,5 @@
 package memotest.land;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
@@ -10,23 +9,25 @@ public class Table extends Group {
 	private final int width, height, pairs;
 	private Cell[][] cells;
 	private Cell[] selected;
-	private float time = 1, timer;
+	private final float time = 1.25f;
+	private float timer;
 	
 	public Table(int width, int height, AssetLoader loader) {
 		if ((width * height) % 2 != 0)
 			throw new IllegalArgumentException("You can't use this width and height");
+		Shape.init(loader);
 		setBounds(0, 0, width * 64, height * 64);
 		cells = new Cell[width][height];
 		selected = new Cell[2];
 		this.width = width;
 		this.height = height;
 		pairs = width * height / 2;
-		Color[] pairs = setPairs();
+		Shape[] pairs = setPairs();
 		int i = 0;
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				cells[x][y] = new Cell(x, y, loader);
-				cells[x][y].setColor(pairs[i++]);
+				cells[x][y].setShape(pairs[i++]);
 				addActor(cells[x][y]);
 			}
 		}
@@ -39,7 +40,8 @@ public class Table extends Group {
 		else if (timer >= 0)
 			timer -= delta;
 		else if (timer <= 0) {
-			if (selected[0].getColor().equals(selected[1].getColor())) {
+			if (selected[0].getShape().getColor() == selected[1].getShape().getColor()
+					&& selected[0].getShape().getShape() == selected[1].getShape().getShape()) {
 				selected[0].setRemoved(true);
 				selected[1].setRemoved(true);
 			} else {
@@ -51,31 +53,34 @@ public class Table extends Group {
 		}
 	}
 	
-	private Color[] setPairs() {
-		// TODO: change this
-		Color[] colors = new Color[pairs * 2];
+	private Shape[] setPairs() {
+		Shape[] shapes = new Shape[pairs * 2];
 		Cluster[] clusters = new Cluster[pairs];
 		for (int i = 0; i < pairs; i++) {
+			int color = i / Shape.Shapes.values().length;
+			if (color >= Shape.Colors.values().length)
+				throw new IllegalArgumentException("The amount of pairs is too big");
+			int shape = i % Shape.Shapes.values().length;
 			clusters[i] = new Cluster(
-					new Color(MathUtils.random(), MathUtils.random(), MathUtils.random(), 1));
+					new Shape(Shape.Colors.values()[color], Shape.Shapes.values()[shape]));
 		}
 		for (int i = 0; i < pairs * 2; i++) {
 			int index;
 			do {
 				index = MathUtils.random(pairs - 1);
 			} while (clusters[index].num == 0);
-			colors[i] = clusters[index].color;
+			shapes[i] = clusters[index].shape;
 			clusters[index].num--;
 		}
-		return colors;
+		return shapes;
 	}
 	
 	public void reset() {
-		Color[] pairs = setPairs();
+		Shape[] pairs = setPairs();
 		int i = 0;
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				cells[x][y].setColor(pairs[i++]);
+				cells[x][y].setShape(pairs[i++]);
 			}
 		}
 	}
@@ -102,11 +107,11 @@ public class Table extends Group {
 	}
 	
 	private class Cluster {
-		private Color color;
+		private Shape shape;
 		private int num;
 		
-		private Cluster(Color color) {
-			this.color = color;
+		private Cluster(Shape shape) {
+			this.shape = shape;
 			num = 2;
 		}
 	}
