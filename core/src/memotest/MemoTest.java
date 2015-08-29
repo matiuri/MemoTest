@@ -20,7 +20,8 @@ public class MemoTest extends Game {
 		gameScreen = new GameScreen(this);
 		loader.queue("Filter", "cells/cellFilter.png", Texture.class)
 				.queue("CellRegion", "cells/cells.png", Texture.class)
-				.queue("Shapes", "cells/cellImages.png", Texture.class).load(gameScreen);
+				.queue("Shapes", "cells/cellImages.png", Texture.class)
+				.queue("ProgressBar", "objects/progressBar.png", Texture.class).load(gameScreen);
 	}
 	
 	@Override

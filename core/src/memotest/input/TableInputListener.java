@@ -3,7 +3,7 @@ package memotest.input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
-import memotest.land.Table;
+import memotest.board.Table;
 
 public class TableInputListener extends InputListener {
 	private Table table;

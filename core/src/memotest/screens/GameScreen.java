@@ -6,8 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import memotest.MemoTest;
+import memotest.board.Table;
 import memotest.input.TableInputListener;
-import memotest.land.Table;
+import memotest.utils.time.Timer;
 
 public class GameScreen extends AbstractScreen {
 	private Stage stage;
@@ -23,6 +24,10 @@ public class GameScreen extends AbstractScreen {
 		t = new Table(6, 6, game.getLoader());
 		t.addListener(new TableInputListener(t));
 		stage.addActor(t);
+		Timer.init(game.getLoader());
+		Timer timer = new Timer(5f, 100, 100, 200, 50);
+		timer.setPerform(true);
+		stage.addActor(timer);
 		Gdx.input.setInputProcessor(stage);
 	}
 	
