@@ -1,4 +1,4 @@
-package memotest.land;
+package memotest.board;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;

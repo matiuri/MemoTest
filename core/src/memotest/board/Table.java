@@ -1,4 +1,4 @@
-package memotest.land;
+package memotest.board;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Group;
