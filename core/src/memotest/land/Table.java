@@ -40,8 +40,7 @@ public class Table extends Group {
 		else if (timer >= 0)
 			timer -= delta;
 		else if (timer <= 0) {
-			if (selected[0].getShape().getColor() == selected[1].getShape().getColor()
-					&& selected[0].getShape().getShape() == selected[1].getShape().getShape()) {
+			if (selected[0].getShape().equals(selected[1].getShape())) {
 				selected[0].setRemoved(true);
 				selected[1].setRemoved(true);
 			} else {

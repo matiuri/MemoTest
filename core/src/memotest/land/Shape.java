@@ -27,12 +27,14 @@ public class Shape {
 		batch.setColor(Color.WHITE);
 	}
 	
-	public Colors getColor() {
-		return color;
-	}
-	
-	public Shapes getShape() {
-		return shape;
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Shape) {
+			Shape sh = (Shape) obj;
+			if (color == sh.color && shape == sh.shape)
+				return true;
+		}
+		return false;
 	}
 	
 	public enum Colors {
