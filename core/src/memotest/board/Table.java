@@ -4,13 +4,16 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
 import memotest.utils.assets.AssetLoader;
+import memotest.utils.time.Timer;
 
 public class Table extends Group {
 	private final int width, height, pairs;
+	private int pairsRem = 0;
 	private Cell[][] cells;
 	private Cell[] selected;
-	private final float time = 1.25f;
+	private final float time = 0.75f;
 	private float timer;
+	private Timer timerActor;
 	
 	public Table(int width, int height, AssetLoader loader) {
 		if ((width * height) % 2 != 0)
@@ -35,6 +38,10 @@ public class Table extends Group {
 	
 	@Override
 	public void act(float delta) {
+		if (timerActor.isTimeOver()) {
+			// TODO: Game Over
+			System.out.println("Game Over");
+		}
 		if (selected[0] == null || selected[1] == null)
 			timer = time;
 		else if (timer >= 0)
@@ -43,6 +50,12 @@ public class Table extends Group {
 			if (selected[0].getShape().equals(selected[1].getShape())) {
 				selected[0].setRemoved(true);
 				selected[1].setRemoved(true);
+				pairsRem++;
+				timerActor.addTime(10);
+				if (pairsRem == pairs) {
+					// TODO: WIN
+					System.out.println("Win");
+				}
 			} else {
 				selected[0].setSelected(false);
 				selected[1].setSelected(false);
@@ -90,6 +103,10 @@ public class Table extends Group {
 	
 	public int getBoardHeight() {
 		return height;
+	}
+	
+	public void setTimerActor(Timer timerActor) {
+		this.timerActor = timerActor;
 	}
 	
 	public void select(float xPos, float yPos) {

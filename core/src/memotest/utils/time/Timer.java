@@ -49,7 +49,7 @@ public class Timer extends Actor {
 						bar = Bars.RED;
 				}
 				setWidth(width * (percent + 0.12f));
-				setX(x + width - getWidth() / 2);
+				setX(x + (width - getWidth()) / 2);
 			} else {
 				remove();
 			}
@@ -64,15 +64,22 @@ public class Timer extends Actor {
 		this.perform = perform;
 	}
 	
+	public void addTime(float time) {
+		if (timer + time <= totalTime)
+			timer += time;
+		else
+			timer = totalTime;
+	}
+	
 	private enum Bars {
 		RED(0), YELLOW(1), GREEN(2), GRAY(3);
 		
-		static final int rad = 12;
+		static final int RAD = 12;
 		
 		NinePatch patch;
 		
 		Bars(int y) {
-			patch = new NinePatch(new TextureRegion(tex, 0, y * 32, 64, 32), rad, rad, rad, rad);
+			patch = new NinePatch(new TextureRegion(tex, 0, y * 32, 64, 32), RAD, RAD, RAD, RAD);
 		}
 	}
 }
