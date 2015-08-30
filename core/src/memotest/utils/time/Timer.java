@@ -48,9 +48,10 @@ public class Timer extends Actor {
 					if (bar != Bars.RED)
 						bar = Bars.RED;
 				}
-				// TODO: Dessapear when percent == 0
 				setWidth(width * (percent + 0.12f));
 				setX(x + width - getWidth() / 2);
+			} else {
+				remove();
 			}
 		}
 	}
