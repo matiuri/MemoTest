@@ -37,9 +37,10 @@ public class Shape {
 		return false;
 	}
 	
+	//@off
 	public enum Colors {
-		RED(Color.RED), BLUE(Color.BLUE), GREEN(Color.GREEN), YELLOW(Color.YELLOW);
-		
+		RED(Color.RED), BLUE(Color.BLUE), GREEN(Color.GREEN), YELLOW(Color.YELLOW), PINK(Color.PINK);
+				
 		private Color color;
 		
 		Colors(Color color) {
@@ -48,8 +49,8 @@ public class Shape {
 	}
 	
 	public enum Shapes {
-		PENTAGON(0, 0), SQUARE(1, 0), SPIRAL(2, 0), TRIANGLE(3, 0), CIRCLE(0, 1), STAR(1,
-				1), DIAMOND(2, 1), EXPLOSION(3, 1);
+		PENTAGON(0, 0), SQUARE(1, 0), SPIRAL(2, 0), TRIANGLE(3, 0), CIRCLE(0, 1), STAR(1, 1),
+		DIAMOND(2, 1), EXPLOSION(3, 1);
 				
 		private TextureRegion region;
 		
@@ -57,4 +58,5 @@ public class Shape {
 			region = new TextureRegion(shapesTex, x * 64, y * 64, 64, 64);
 		}
 	}
+	//@on
 }

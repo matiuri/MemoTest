@@ -72,12 +72,31 @@ public class Table extends Group {
 		Shape[] shapes = new Shape[pairs * 2];
 		Cluster[] clusters = new Cluster[pairs];
 		for (int i = 0; i < pairs; i++) {
-			int color = i / Shape.Shapes.values().length;
-			if (color >= Shape.Colors.values().length)
-				throw new IllegalArgumentException("The amount of pairs is too big");
-			int shape = i % Shape.Shapes.values().length;
-			clusters[i] = new Cluster(
-					new Shape(Shape.Colors.values()[color], Shape.Shapes.values()[shape]));
+			// int color = i / Shape.Shapes.values().length;
+			// if (color >= Shape.Colors.values().length)
+			// throw new IllegalArgumentException("The amount of pairs is too
+			// big");
+			// int shape = i % Shape.Shapes.values().length;
+			// clusters[i] = new Cluster(
+			// new Shape(Shape.Colors.values()[color],
+			// Shape.Shapes.values()[shape]));
+			boolean repeted;
+			do {
+				repeted = false;
+				int color = MathUtils.random(Shape.Colors.values().length - 1);
+				int shape = MathUtils.random(Shape.Shapes.values().length - 1);
+				Shape shapeTemp = new Shape(Shape.Colors.values()[color],
+						Shape.Shapes.values()[shape]);
+				for (int j = 0; j < i; j++) {
+					if (shapeTemp.equals(clusters[j].shape)) {
+						repeted = true;
+						break;
+					}
+				}
+				if (!repeted) {
+					clusters[i] = new Cluster(shapeTemp);
+				}
+			} while (repeted);
 		}
 		for (int i = 0; i < pairs * 2; i++) {
 			int index;
