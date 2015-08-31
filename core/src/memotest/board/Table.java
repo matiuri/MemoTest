@@ -38,7 +38,7 @@ public class Table extends Group {
 	
 	@Override
 	public void act(float delta) {
-		if (timerActor.isTimeOver()) {
+		if (timerActor != null && timerActor.isTimeOver()) {
 			// TODO: Game Over
 			System.out.println("Game Over");
 		}
@@ -51,9 +51,12 @@ public class Table extends Group {
 				selected[0].setRemoved(true);
 				selected[1].setRemoved(true);
 				pairsRem++;
-				timerActor.addTime(10);
+				if (timerActor != null)
+					timerActor.addTime(10);
 				if (pairsRem == pairs) {
 					// TODO: WIN
+					if (timerActor != null)
+						timerActor.setPerform(false);
 					System.out.println("Win");
 				}
 			} else {
