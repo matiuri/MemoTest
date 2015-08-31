@@ -28,7 +28,7 @@ public class GameScreen extends AbstractScreen {
 		Timer.init(game.getLoader());
 		float width = stage.getWidth() - table.getRight() - 50;
 		float x = table.getRight() + (stage.getWidth() - table.getRight()) / 2 - width / 2;
-		timer = new Timer(60, x, stage.getHeight() / 2 - 25, width, 50);
+		timer = new Timer(30, x, stage.getHeight() / 2 - 25, width, 50);
 		timer.setPerform(true);
 		stage.addActor(timer);
 		table.setTimerActor(timer);

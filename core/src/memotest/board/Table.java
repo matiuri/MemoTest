@@ -52,7 +52,7 @@ public class Table extends Group {
 				selected[1].setRemoved(true);
 				pairsRem++;
 				if (timerActor != null)
-					timerActor.addTime(10);
+					timerActor.addTime(7);
 				if (pairsRem == pairs) {
 					// TODO: WIN
 					if (timerActor != null)
@@ -72,14 +72,6 @@ public class Table extends Group {
 		Shape[] shapes = new Shape[pairs * 2];
 		Cluster[] clusters = new Cluster[pairs];
 		for (int i = 0; i < pairs; i++) {
-			// int color = i / Shape.Shapes.values().length;
-			// if (color >= Shape.Colors.values().length)
-			// throw new IllegalArgumentException("The amount of pairs is too
-			// big");
-			// int shape = i % Shape.Shapes.values().length;
-			// clusters[i] = new Cluster(
-			// new Shape(Shape.Colors.values()[color],
-			// Shape.Shapes.values()[shape]));
 			boolean repeted;
 			do {
 				repeted = false;
