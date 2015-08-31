@@ -1,8 +1,8 @@
 ## General
 Assets/
+*.ttf
 
 ## Java
-
 *.class
 *.war
 *.ear
