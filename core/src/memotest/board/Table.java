@@ -69,6 +69,8 @@ public class Table extends Group {
 	}
 	
 	private Shape[] setPairs() {
+		if (pairs > Shape.Colors.values().length * Shape.Shapes.values().length)
+			throw new IllegalArgumentException("There are too many pairs: " + pairs);
 		Shape[] shapes = new Shape[pairs * 2];
 		Cluster[] clusters = new Cluster[pairs];
 		for (int i = 0; i < pairs; i++) {
