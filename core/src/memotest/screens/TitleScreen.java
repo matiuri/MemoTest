@@ -11,13 +11,32 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import memotest.MemoTest;
 
+/**
+ * This class represents the title screen of {@link MemoTest}
+ * 
+ * @author Matías
+ */
 public class TitleScreen extends AbstractScreen {
+	/**
+	 * The {@link Stage}
+	 */
 	private Stage stage;
 	
+	/**
+	 * Constructs a new {@link TitleScreen}
+	 * 
+	 * @param game
+	 *            -> A reference to {@link MemoTest}
+	 */
 	public TitleScreen(MemoTest game) {
 		super(game);
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Screen#show()
+	 */
 	@Override
 	public void show() {
 		stage = new Stage(new ScreenViewport());
@@ -51,12 +70,22 @@ public class TitleScreen extends AbstractScreen {
 		Gdx.input.setInputProcessor(stage);
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Screen#render(float)
+	 */
 	@Override
 	public void render(float delta) {
 		stage.act(delta);
 		stage.draw();
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Screen#hide()
+	 */
 	@Override
 	public void hide() {
 		stage.dispose();

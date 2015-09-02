@@ -6,15 +6,54 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import memotest.utils.assets.AssetLoader;
 import memotest.utils.time.Timer;
 
+/**
+ * This class represents the table.
+ * <p>
+ * Extends {@link Group}.
+ * 
+ * @author Matías
+ */
 public class Table extends Group {
+	/**
+	 * The width and height without counting the {@link Cell} size, and the
+	 * amount of pairs
+	 */
 	private final int width, height, pairs;
+	/**
+	 * The amount of remaining pairs
+	 */
 	private int pairsRem = 0;
+	/**
+	 * The reference to all the {@link Cell}s
+	 */
 	private Cell[][] cells;
+	/**
+	 * THe reference to the selected {@link Cell}s
+	 */
 	private Cell[] selected;
+	/**
+	 * The amount of time of the cooldown
+	 */
 	private final float time = 0.75f;
+	/**
+	 * The current amount of time
+	 */
 	private float timer;
+	/**
+	 * The reference to the {@link Timer}. May be null.
+	 */
 	private Timer timerActor;
 	
+	/**
+	 * Constructs a new {@link Table}
+	 * 
+	 * @param width
+	 *            -> The amount of cols
+	 * @param height
+	 *            -> The amount of rows
+	 * @param loader
+	 *            -> An {@link AssetLoader}
+	 */
 	public Table(int width, int height, AssetLoader loader) {
 		if ((width * height) % 2 != 0)
 			throw new IllegalArgumentException("You can't use this width and height");
@@ -36,6 +75,11 @@ public class Table extends Group {
 		}
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.scenes.scene2d.Group#act(float)
+	 */
 	@Override
 	public void act(float delta) {
 		if (timerActor != null && timerActor.isTimeOver()) {
@@ -103,6 +147,9 @@ public class Table extends Group {
 		return shapes;
 	}
 	
+	/**
+	 * Resets all the pairs
+	 */
 	public void reset() {
 		Shape[] pairs = setPairs();
 		int i = 0;
@@ -113,18 +160,36 @@ public class Table extends Group {
 		}
 	}
 	
+	/**
+	 * @return The amount of cols
+	 */
 	public int getBoardWidth() {
 		return width;
 	}
 	
+	/**
+	 * @return The amount of rows
+	 */
 	public int getBoardHeight() {
 		return height;
 	}
 	
+	/**
+	 * Sets the {@link #timerActor}
+	 * 
+	 * @param timerActor
+	 *            -> An instance of {@link Timer}
+	 */
 	public void setTimerActor(Timer timerActor) {
 		this.timerActor = timerActor;
 	}
 	
+	/**
+	 * Selects a cell
+	 * 
+	 * @param xPos
+	 * @param yPos
+	 */
 	public void select(float xPos, float yPos) {
 		int x = (int) (xPos / 64), y = (int) (yPos / 64);
 		if (selected[0] == null && !cells[x][y].isRemoved()) {

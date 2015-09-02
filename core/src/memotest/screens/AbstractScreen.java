@@ -17,33 +17,72 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 import memotest.MemoTest;
 
+/**
+ * This class represents a {@link MemoTest} screen.
+ * <p>
+ * Implements {@link Screen}
+ * 
+ * @author Matías
+ */
 public abstract class AbstractScreen implements Screen {
+	/**
+	 * A reference to {@link MemoTest}
+	 */
 	protected MemoTest game;
 	private NinePatchDrawable buttonUp, buttonDown;
 	private BitmapFont font;
 	private boolean initedGUI = false;
 	
+	/**
+	 * Constructs a new {@link AbstractScreen}
+	 * 
+	 * @param game
+	 *            -> A reference to {@link MemoTest}
+	 */
 	public AbstractScreen(MemoTest game) {
 		this.game = game;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Screen#resize(int, int)
+	 */
 	@Override
 	public void resize(int width, int height) {
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Screen#pause()
+	 */
 	@Override
 	public void pause() {
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Screen#resume()
+	 */
 	@Override
 	public void resume() {
-	
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Screen#dispose()
+	 */
 	@Override
 	public void dispose() {
 	}
 	
+	/**
+	 * This method should be called by all the screens that extend
+	 * {@link AbstractScreen} and want to use scene2dui
+	 */
 	protected final void initGUI() {
 		Texture tex = game.getLoader().get("Buttons", Texture.class);
 		NinePatch up, down;
@@ -63,7 +102,16 @@ public abstract class AbstractScreen implements Screen {
 		initedGUI = true;
 	}
 	
-	protected final TextButton createButton(String text) {
+	/**
+	 * Creates a {@link TextButton}
+	 * 
+	 * @param text
+	 *            -> The text of the button
+	 * @return The button
+	 * @throws IllegalStateException
+	 *             if the method {@link #initGUI()} hasn't been called
+	 */
+	protected final TextButton createButton(String text) throws IllegalStateException {
 		if (!initedGUI)
 			throw new IllegalStateException("You haven't called initGUI method!");
 		TextButtonStyle tbs = new TextButtonStyle(buttonUp, buttonDown, buttonDown, font);
@@ -71,7 +119,16 @@ public abstract class AbstractScreen implements Screen {
 		return button;
 	}
 	
-	protected final Label createLabel(String text) {
+	/**
+	 * Creates a {@link Label}
+	 * 
+	 * @param text
+	 *            -> The text of the label
+	 * @return The label
+	 * @throws IllegalStateException
+	 *             if the method {@link #initGUI()} hasn't been called
+	 */
+	protected final Label createLabel(String text) throws IllegalStateException {
 		if (!initedGUI)
 			throw new IllegalStateException("You haven't called initGUI method!");
 		LabelStyle ls = new LabelStyle(font, Color.WHITE);

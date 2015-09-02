@@ -10,15 +10,42 @@ import memotest.board.Table;
 import memotest.input.TableInputListener;
 import memotest.utils.time.Timer;
 
+/**
+ * This class represents the screen of the game itself.
+ * <p>
+ * Extends {@link AbstractScreen}
+ * 
+ * @author Matías
+ */
 public class GameScreen extends AbstractScreen {
+	/**
+	 * The {@link Stage}
+	 */
 	private Stage stage;
+	/**
+	 * The {@link Table}
+	 */
 	private Table table;
+	/**
+	 * The {@link Timer}
+	 */
 	private Timer timer;
 	
+	/**
+	 * Constructs a new {@link GameScreen}
+	 * 
+	 * @param game
+	 *            -> A reference to {@link MemoTest}
+	 */
 	public GameScreen(MemoTest game) {
 		super(game);
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Screen#show()
+	 */
 	@Override
 	public void show() {
 		stage = new Stage(new ExtendViewport(800, 480));
@@ -35,6 +62,11 @@ public class GameScreen extends AbstractScreen {
 		Gdx.input.setInputProcessor(stage);
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Screen#render(float)
+	 */
 	@Override
 	public void render(float delta) {
 		// TODO: Change this
@@ -44,11 +76,21 @@ public class GameScreen extends AbstractScreen {
 		stage.draw();
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see memotest.screens.AbstractScreen#resize(int, int)
+	 */
 	@Override
 	public void resize(int width, int height) {
 		stage.getViewport().update(width, height);
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Screen#hide()
+	 */
 	@Override
 	public void hide() {
 		stage.dispose();

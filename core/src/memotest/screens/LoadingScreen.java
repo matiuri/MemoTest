@@ -7,6 +7,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import memotest.MemoTest;
 
+/**
+ * This class represents the loading screen.
+ * <p>
+ * Extends {@link AbstractScreen}
+ * 
+ * @author Matías
+ */
 public class LoadingScreen extends AbstractScreen {
 	private final AssetManager manager;
 	private final AbstractScreen nextScreen;
@@ -14,6 +21,17 @@ public class LoadingScreen extends AbstractScreen {
 	private BitmapFont font;
 	private float timer = 0.5f;
 	
+	/**
+	 * Constructs a new {@link LoadingScreen}
+	 * 
+	 * @param game
+	 *            -> A reference to {@link MemoTest}
+	 * @param manager
+	 *            -> A reference to the {@link AssetManager} that have to load
+	 *            the queued assets
+	 * @param nextScreen
+	 *            -> The next screen
+	 */
 	public LoadingScreen(MemoTest game, final AssetManager manager,
 			final AbstractScreen nextScreen) {
 		super(game);
@@ -21,6 +39,11 @@ public class LoadingScreen extends AbstractScreen {
 		this.nextScreen = nextScreen;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Screen#show()
+	 */
 	@Override
 	public void show() {
 		sb = new SpriteBatch();
@@ -28,6 +51,11 @@ public class LoadingScreen extends AbstractScreen {
 		font.setColor(Color.WHITE);
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Screen#render(float)
+	 */
 	@Override
 	public void render(float delta) {
 		// TODO: improve this
@@ -47,6 +75,11 @@ public class LoadingScreen extends AbstractScreen {
 		}
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Screen#hide()
+	 */
 	@Override
 	public void hide() {
 		sb.dispose();

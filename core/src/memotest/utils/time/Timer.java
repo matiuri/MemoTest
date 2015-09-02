@@ -8,17 +8,59 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import memotest.utils.assets.AssetLoader;
 
+/**
+ * This class represents the timer.
+ * <p>
+ * Extends {@link Actor}
+ * 
+ * @author Matías
+ */
 public class Timer extends Actor {
+	/**
+	 * The complete progress bar's texture
+	 */
 	private static Texture tex;
+	/**
+	 * The total (and max) time of this {@link Timer}
+	 */
 	private final float totalTime;
+	/**
+	 * THe amount of time, the x-pos and the width of this {@link Timer}
+	 */
 	private float timer, x, width;
+	/**
+	 * The progress bar's texture of this {@link Timer}
+	 */
 	private Bars bar = Bars.GRAY;
+	/**
+	 * Whether, or not, this {@link Timer} has to count time
+	 */
 	private boolean perform = false;
 	
+	/**
+	 * Sets the {@link #tex} {@link Texture}
+	 * 
+	 * @param loader
+	 *            -> An instance of {@link AssetLoader}
+	 */
 	public static void init(AssetLoader loader) {
 		tex = loader.get("ProgressBar", Texture.class);
 	}
 	
+	/**
+	 * Constructs a new {@link Timer}
+	 * 
+	 * @param totalTime
+	 *            -> The max amount of time
+	 * @param x
+	 *            -> The x-pos
+	 * @param y
+	 *            -> The y-pos
+	 * @param width
+	 *            -> The width
+	 * @param height
+	 *            -> The height
+	 */
 	public Timer(final float totalTime, float x, float y, float width, float height) {
 		this.totalTime = totalTime;
 		timer = totalTime;
@@ -27,11 +69,23 @@ public class Timer extends Actor {
 		setBounds(x, y, width, height);
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.badlogic.gdx.scenes.scene2d.Actor#draw(com.badlogic.gdx.graphics.g2d.
+	 * Batch, float)
+	 */
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		bar.patch.draw(batch, getX(), getY(), getWidth(), getHeight());
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.scenes.scene2d.Actor#act(float)
+	 */
 	@Override
 	public void act(float delta) {
 		if (perform) {
@@ -56,14 +110,29 @@ public class Timer extends Actor {
 		}
 	}
 	
+	/**
+	 * @return If the timer doesn't have time left
+	 */
 	public boolean isTimeOver() {
 		return timer <= 0;
 	}
 	
+	/**
+	 * Sets the value of {@link #perform}
+	 * 
+	 * @param perform
+	 *            -> The new value of {@link #perform}
+	 */
 	public void setPerform(boolean perform) {
 		this.perform = perform;
 	}
 	
+	/**
+	 * Adds time to this {@link Timer}
+	 * 
+	 * @param time
+	 *            -> The amount of time
+	 */
 	public void addTime(float time) {
 		if (timer + time <= totalTime)
 			timer += time;

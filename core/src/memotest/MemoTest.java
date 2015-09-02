@@ -11,11 +11,24 @@ import memotest.screens.GameScreen;
 import memotest.screens.TitleScreen;
 import memotest.utils.assets.AssetLoader;
 
+/**
+ * This is the main class
+ * 
+ * @author Matías
+ */
 public class MemoTest extends Game {
+	/**
+	 * The {@link AssetLoader}
+	 */
 	private AssetLoader loader;
 	// TODO: remove public
 	public AbstractScreen titleScreen, gameScreen;
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.ApplicationListener#create()
+	 */
 	@Override
 	public void create() {
 		loader = new AssetLoader(this);
@@ -28,6 +41,11 @@ public class MemoTest extends Game {
 				.queue("Buttons", "GUI/buttons.png", Texture.class).load(titleScreen);
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Game#render()
+	 */
 	@Override
 	public void render() {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -38,11 +56,19 @@ public class MemoTest extends Game {
 			Gdx.app.exit();
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Game#dispose()
+	 */
 	@Override
 	public void dispose() {
 		loader.dispose();
 	}
 	
+	/**
+	 * @return {@link MemoTest#loader}
+	 */
 	public AssetLoader getLoader() {
 		return loader;
 	}
