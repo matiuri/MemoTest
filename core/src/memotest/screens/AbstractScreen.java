@@ -96,7 +96,7 @@ public abstract class AbstractScreen implements Screen {
 		par.size = 64;
 		par.color = Color.WHITE;
 		par.borderColor = Color.BLACK;
-		par.borderWidth = 1.5f;
+		par.borderWidth = 3;
 		font = gen.generateFont(par);
 		gen.dispose();
 		initedGUI = true;
