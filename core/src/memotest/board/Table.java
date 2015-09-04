@@ -1,6 +1,7 @@
 package memotest.board;
 
-import com.badlogic.gdx.math.MathUtils;
+import static memotest.board.Generator.*;
+
 import com.badlogic.gdx.scenes.scene2d.Group;
 
 import memotest.utils.assets.AssetLoader;
@@ -115,36 +116,7 @@ public class Table extends Group {
 	private Shape[] setPairs() {
 		if (pairs > Shape.Colors.values().length * Shape.Shapes.values().length)
 			throw new IllegalArgumentException("There are too many pairs: " + pairs);
-		Shape[] shapes = new Shape[pairs * 2];
-		Cluster[] clusters = new Cluster[pairs];
-		for (int i = 0; i < pairs; i++) {
-			boolean repeted;
-			do {
-				repeted = false;
-				int color = MathUtils.random(Shape.Colors.values().length - 1);
-				int shape = MathUtils.random(Shape.Shapes.values().length - 1);
-				Shape shapeTemp = new Shape(Shape.Colors.values()[color],
-						Shape.Shapes.values()[shape]);
-				for (int j = 0; j < i; j++) {
-					if (shapeTemp.equals(clusters[j].shape)) {
-						repeted = true;
-						break;
-					}
-				}
-				if (!repeted) {
-					clusters[i] = new Cluster(shapeTemp);
-				}
-			} while (repeted);
-		}
-		for (int i = 0; i < pairs * 2; i++) {
-			int index;
-			do {
-				index = MathUtils.random(pairs - 1);
-			} while (clusters[index].num == 0);
-			shapes[i] = clusters[index].shape;
-			clusters[index].num--;
-		}
-		return shapes;
+		return sortPairs(generateRandomPairs(pairs));
 	}
 	
 	/**
@@ -200,16 +172,6 @@ public class Table extends Group {
 				selected[1] = cells[x][y];
 				selected[1].setSelected(true);
 			}
-		}
-	}
-	
-	private class Cluster {
-		private Shape shape;
-		private int num;
-		
-		private Cluster(Shape shape) {
-			this.shape = shape;
-			num = 2;
 		}
 	}
 }
