@@ -48,17 +48,27 @@ public class TitleScreen extends AbstractScreen {
 		table.setFillParent(true);
 		initGUI();
 		Label title = createLabel("MemoTest");
-		TextButton newGame = createButton("New Game");
+		TextButton newGame_T = createButton("Time Limit");
+		TextButton newGame_M = createButton("Moves Limit");
 		TextButton exit = createButton("Exit");
 		
-		// FIXME: fix position and size
 		table.add(title).colspan(2).pad(25).expandX().row();
-		table.add(newGame).pad(25).width(400).align(Align.right);
+		table.add(newGame_T).pad(25).width(400).align(Align.right);
+		table.add(newGame_M).pad(25).width(400).align(Align.center);
 		table.add(exit).pad(25).width(400).align(Align.left);
 		
-		newGame.addCaptureListener(new ChangeListener() {
+		newGame_T.addCaptureListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
+				game.gameScreen = new GameScreen(game, true);
+				game.setScreen(game.gameScreen);
+			}
+		});
+		
+		newGame_M.addCaptureListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				game.gameScreen = new GameScreen(game, false);
 				game.setScreen(game.gameScreen);
 			}
 		});

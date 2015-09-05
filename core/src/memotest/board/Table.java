@@ -44,6 +44,8 @@ public class Table extends Group {
 	 * The reference to the {@link Timer}. May be null.
 	 */
 	private Timer timerActor;
+	private int movesLeft;
+	private boolean movesMode;
 	
 	/**
 	 * Constructs a new {@link Table}
@@ -83,7 +85,7 @@ public class Table extends Group {
 	 */
 	@Override
 	public void act(float delta) {
-		if (timerActor != null && timerActor.isTimeOver()) {
+		if ((!movesMode && timerActor.isTimeOver()) || (movesMode && movesLeft == 0)) {
 			// TODO: Game Over
 			System.out.println("Game Over");
 		}
@@ -96,17 +98,25 @@ public class Table extends Group {
 				selected[0].setRemoved(true);
 				selected[1].setRemoved(true);
 				pairsRem++;
-				if (timerActor != null)
+				if (!movesMode)
 					timerActor.addTime(7);
+				else {
+					if (movesLeft + 7 < 25)
+						movesLeft += 7;
+					else
+						movesLeft = 25;
+				}
 				if (pairsRem == pairs) {
 					// TODO: WIN
-					if (timerActor != null)
+					if (!movesMode)
 						timerActor.setPerform(false);
 					System.out.println("Win");
 				}
 			} else {
 				selected[0].setSelected(false);
 				selected[1].setSelected(false);
+				if (movesMode)
+					movesLeft -= 1;
 			}
 			selected[0] = null;
 			selected[1] = null;
@@ -154,6 +164,16 @@ public class Table extends Group {
 	 */
 	public void setTimerActor(Timer timerActor) {
 		this.timerActor = timerActor;
+		movesMode = false;
+	}
+	
+	public void setMoovesLeft(int movesLeft) {
+		this.movesLeft = movesLeft;
+		movesMode = true;
+	}
+	
+	public int getMovesLeft() {
+		return movesLeft;
 	}
 	
 	/**

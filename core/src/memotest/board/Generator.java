@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.MathUtils;
  * @author Matías
  */
 class Generator {
+	private static boolean aviable = false;
 	private static int pairs;
 	
 	/**
@@ -41,17 +42,23 @@ class Generator {
 				}
 			} while (repeted);
 		}
+		aviable = true;
 		return clusters;
 	}
 	
 	/**
-	 * Randomize the positions of a {@link Cluster}
+	 * Randomize the positions of a {@link Cluster} array
 	 * 
 	 * @param clusters
-	 *            -> A {@link Cluster}
+	 *            -> A {@link Cluster} array
 	 * @return A randomized {@link Shape} array
+	 * @throws IllegalStateException
+	 *             if you haven't called {@link #generateRandomPairs(int)}
+	 *             before
 	 */
-	static Shape[] sortPairs(Cluster[] clusters) {
+	static Shape[] sortPairs(Cluster[] clusters) throws IllegalStateException {
+		if (!aviable)
+			throw new IllegalStateException("You haven't called generateRandomPairs method");
 		Shape[] shapes = new Shape[pairs * 2];
 		for (int i = 0; i < pairs * 2; i++) {
 			int index;
@@ -61,6 +68,7 @@ class Generator {
 			shapes[i] = clusters[index].shape;
 			clusters[index].num--;
 		}
+		aviable = false;
 		return shapes;
 	}
 	

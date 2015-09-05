@@ -84,6 +84,10 @@ public abstract class AbstractScreen implements Screen {
 	 * {@link AbstractScreen} and want to use scene2dui
 	 */
 	protected final void initGUI() {
+		initGUI(64);
+	}
+	
+	protected final void initGUI(int size) {
 		Texture tex = game.getLoader().get("Buttons", Texture.class);
 		NinePatch up, down;
 		up = new NinePatch(new TextureRegion(tex, 0, 32, 64, 32), 12, 12, 12, 12);
@@ -93,7 +97,7 @@ public abstract class AbstractScreen implements Screen {
 		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(
 				Gdx.files.internal("fonts/Ubuntu-Regular.ttf"));
 		FreeTypeFontParameter par = new FreeTypeFontParameter();
-		par.size = 64;
+		par.size = size;
 		par.color = Color.WHITE;
 		par.borderColor = Color.BLACK;
 		par.borderWidth = 3;
