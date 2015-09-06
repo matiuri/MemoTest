@@ -140,6 +140,10 @@ public class Timer extends Actor {
 			timer = totalTime;
 	}
 	
+	public float getTime() {
+		return timer;
+	}
+	
 	private enum Bars {
 		RED(0), YELLOW(1), GREEN(2), GRAY(3);
 		

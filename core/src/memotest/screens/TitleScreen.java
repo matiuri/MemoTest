@@ -52,11 +52,14 @@ public class TitleScreen extends AbstractScreen {
 		TextButton newGame_M = createButton("Moves Limit");
 		TextButton exit = createButton("Exit");
 		
-		table.add(title).colspan(2).pad(25).expandX().row();
+		table.add(title).colspan(3).pad(25).expandX().row();
 		table.add(newGame_T).pad(25).width(400).align(Align.right);
 		table.add(newGame_M).pad(25).width(400).align(Align.center);
-		table.add(exit).pad(25).width(400).align(Align.left);
-		
+		table.add(exit).pad(25).width(400).align(Align.topLeft).row();
+		initGUI(25);
+		table.add(createLabel(MemoTest.VERSION)).colspan(3).padRight(25).expandX()
+				.align(Align.right);
+				
 		newGame_T.addCaptureListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {

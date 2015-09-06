@@ -4,6 +4,8 @@ import static memotest.board.Generator.*;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 
+import memotest.MemoTest;
+import memotest.screens.GameFinishedScreen;
 import memotest.utils.assets.AssetLoader;
 import memotest.utils.time.Timer;
 
@@ -15,6 +17,7 @@ import memotest.utils.time.Timer;
  * @author Matías
  */
 public class Table extends Group {
+	private MemoTest game;
 	/**
 	 * The width and height without counting the {@link Cell} size, and the
 	 * amount of pairs
@@ -57,9 +60,10 @@ public class Table extends Group {
 	 * @param loader
 	 *            -> An {@link AssetLoader}
 	 */
-	public Table(int width, int height, AssetLoader loader) {
+	public Table(MemoTest game, int width, int height, AssetLoader loader) {
 		if ((width * height) % 2 != 0)
 			throw new IllegalArgumentException("You can't use this width and height");
+		this.game = game;
 		Shape.init(loader);
 		setBounds(0, 0, width * 64, height * 64);
 		cells = new Cell[width][height];
@@ -86,8 +90,7 @@ public class Table extends Group {
 	@Override
 	public void act(float delta) {
 		if ((!movesMode && timerActor.isTimeOver()) || (movesMode && movesLeft == 0)) {
-			// TODO: Game Over
-			System.out.println("Game Over");
+			game.setScreen(new GameFinishedScreen(game, false, !movesMode, 0));
 		}
 		if (selected[0] == null || selected[1] == null)
 			timer = time;
@@ -107,10 +110,14 @@ public class Table extends Group {
 						movesLeft = 25;
 				}
 				if (pairsRem == pairs) {
-					// TODO: WIN
 					if (!movesMode)
 						timerActor.setPerform(false);
-					System.out.println("Win");
+					float temp;
+					if (movesMode)
+						temp = movesLeft;
+					else
+						temp = timerActor.getTime();
+					game.setScreen(new GameFinishedScreen(game, true, !movesMode, temp));
 				}
 			} else {
 				selected[0].setSelected(false);

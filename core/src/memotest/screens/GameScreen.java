@@ -54,25 +54,23 @@ public class GameScreen extends AbstractScreen {
 	@Override
 	public void show() {
 		stage = new Stage(new ExtendViewport(800, 480));
-		table = new Table(6, 6, game.getLoader());
+		table = new Table(game, 6, 6, game.getLoader());
 		table.addListener(new TableInputListener(table));
-		table.setY(stage.getHeight() / 2 - table.getHeight() / 2);
+		table.setPosition(stage.getWidth() / 2 - table.getWidth() / 2,
+				stage.getHeight() / 2 - table.getHeight() / 2);
 		stage.addActor(table);
 		if (timed) {
-			// TODO: center table and put timer on bottom
 			Timer.init(game.getLoader());
-			float width = stage.getWidth() - table.getRight() - 50;
-			float x = table.getRight() + (stage.getWidth() - table.getRight()) / 2 - width / 2;
-			Timer timer = new Timer(30, x, stage.getHeight() / 2 - 25, width, 50);
+			Timer timer = new Timer(30, 50, table.getY() / 2 - 15, stage.getWidth() - 100, 30);
 			timer.setPerform(true);
 			stage.addActor(timer);
 			table.setTimerActor(timer);
 		} else {
-			table.setX(stage.getWidth() / 2 - table.getWidth() / 2);
 			table.setMoovesLeft(10);
 			initGUI(24);
 			movesLeft = createLabel("Moves Left: " + table.getMovesLeft());
-			movesLeft.setX(stage.getWidth() / 2 - movesLeft.getWidth() / 2);
+			movesLeft.setPosition(stage.getWidth() / 2 - movesLeft.getWidth() / 2,
+					table.getY() / 4 - movesLeft.getY() / 2);
 			stage.addActor(movesLeft);
 		}
 		Gdx.input.setInputProcessor(stage);

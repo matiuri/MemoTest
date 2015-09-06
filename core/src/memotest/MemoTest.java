@@ -16,6 +16,7 @@ import memotest.utils.assets.AssetLoader;
  * @author Matías
  */
 public class MemoTest extends Game {
+	public static final String VERSION = "v0.1 alpha";
 	/**
 	 * The {@link AssetLoader}
 	 */
